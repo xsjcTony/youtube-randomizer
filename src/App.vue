@@ -1,32 +1,22 @@
-<script setup lang="ts">
-import HelloWorld from '@/components/HelloWorld.vue'
-import Logo from '@assets/images/logo.svg'
+<script lang="ts" setup>
+import usePlaylist from '@/composables/usePlaylist'
+import VideoList from '@components/VideoList.vue'
+
+
+const { error, loading, playlistItems } = usePlaylist()
 </script>
 
 <template>
-    <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer noopener">
-            <Logo />
-        </a>
-        <a href="https://vuejs.org/" target="_blank" rel="noreferrer noopener">
-            <img src="./assets/vue.svg" class="logo vue" alt="Vue logo">
-        </a>
-    </div>
-    <HelloWorld msg="Vite + Vue" />
+    <h1 class="text-white text-4xl font-bold flex items-center gap-10">
+        <img alt="logo" src="/favicon.png" class="w-16">
+        <span class="bg-clip-text title leading-normal">Aelita's Youtube Playlist Randomizer</span>
+    </h1>
+    <VideoList :items="playlistItems" />
 </template>
 
 <style scoped>
-.logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-}
-
-.logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vue:hover {
-    filter: drop-shadow(0 0 2em #42b883aa);
+.title {
+    background-image: var(--gradient-1);
+    -webkit-text-fill-color: transparent;
 }
 </style>

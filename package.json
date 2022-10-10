@@ -9,9 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "pinia": "^2.0.23",
-    "vue": "^3.2.40",
-    "vue-router": "^4.1.5"
+    "tailwindcss": "^3.1.8",
+    "vue": "^3.2.40"
   },
   "devDependencies": {
     "@nabla/vite-plugin-eslint": "^1.4.1",

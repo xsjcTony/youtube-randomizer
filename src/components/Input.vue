@@ -9,7 +9,7 @@ defineExpose({ playlistId })
 
 <template>
     <input
-        v-model="playlistId"
+        v-model.trim="playlistId"
         aria-label="Enter playlist ID"
         type="text"
         class="input border bg-transparent outline-none text-white p-2 flex-1"

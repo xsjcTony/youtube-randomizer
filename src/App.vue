@@ -13,7 +13,7 @@ const selectedIndex = $ref<number>(0)
         <img alt="logo" src="/favicon.png" class="w-12">
         <span class="bg-clip-text title leading-normal bg-gradient-to-r from-gradient1-color-start to-gradient1-color-stop">Aelita's Youtube Playlist Randomizer</span>
     </h1>
-    <VideoList :items="playlistItems" :selected-index="selectedIndex" />
+    <VideoList v-model:selected-index="selectedIndex" :items="playlistItems" />
 </template>
 
 <style scoped>

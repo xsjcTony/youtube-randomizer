@@ -6,6 +6,9 @@ import { camelToSentence } from '@/utils'
 import type { Ref } from 'vue'
 
 
+/**
+ * Types
+ */
 interface Thumbnail {
   url: string
   width: number
@@ -73,6 +76,9 @@ export interface PlaylistItem {
 }
 
 
+/**
+ * Content
+ */
 const apiKey = 'AIzaSyDxh0BAAm28Fi-eXyDUgNj3bnh4wS978g0'
 
 const usePlaylist = (playlistId: Ref<string>): {
@@ -89,13 +95,12 @@ const usePlaylist = (playlistId: Ref<string>): {
   const fetchPlaylist = async (): Promise<void> => {
     const params = new URLSearchParams({
       key: apiKey,
-      playlistId: playlistId.value,
       maxResults: '50',
       part: 'snippet',
       pageToken: nextPageToken ?? ''
     })
 
-    const url = `https://www.googleapis.com/youtube/v3/playlistItems?${params.toString()}`
+    const url = `https://www.googleapis.com/youtube/v3/playlistItems?${params.toString()}&playlistId=${playlistId.value}`
     console.log(url)
 
     try {
@@ -134,6 +139,7 @@ const usePlaylist = (playlistId: Ref<string>): {
   }
 
   watch(playlistId, () => {
+    error = null
     loading = true
     playlistItems.length = 0
     void fetchPlaylist()

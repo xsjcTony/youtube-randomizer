@@ -1,27 +1,19 @@
 <script lang="ts" setup>
-interface InputProps {
-  modelValue: string
-}
-
-type InputEvents = (e: 'update:modelValue', value: string) => void
+import { ref } from 'vue'
 
 
-const { modelValue } = defineProps<InputProps>()
-const emit = defineEmits<InputEvents>()
+const playlistId = ref<string>('')
 
-const handleInput = (event: Event): void => {
-  emit('update:modelValue', (event.target as HTMLInputElement).value)
-}
+defineExpose({ playlistId })
 </script>
 
 <template>
     <input
-        :value="modelValue"
-        aria-label="Playlist ID"
+        v-model="playlistId"
+        aria-label="Enter playlist ID"
         type="text"
         class="input border bg-transparent outline-none text-white p-2 flex-1"
-        placeholder="Playlist ID"
-        @input="handleInput"
+        placeholder="Enter Playlist ID"
     >
 </template>
 

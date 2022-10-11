@@ -7,8 +7,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'color-1': '#d9a7c7',
-        'color-2': '#fffcdc'
+        'gradient1-color-start': '#d9a7c7',
+        'gradient1-color-stop': '#fffcdc',
+        'gradient2-color-start': '#aa4b6b',
+        'gradient2-color-stop': '#3b8d99'
       }
     }
   },

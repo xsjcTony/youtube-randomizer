@@ -88,11 +88,15 @@ const usePlaylist = (): {
         method: 'GET'
       })).json()
 
-      res.items.map(item => void playlistItems.push({
-        title: item.snippet.title,
-        videoId: item.snippet.resourceId.videoId,
-        channel: item.snippet.channelTitle
-      }))
+      res.items.map((item) => {
+        if (['Deleted video', 'Private video'].includes(item.snippet.title)) return
+
+        playlistItems.push({
+          title: item.snippet.title,
+          videoId: item.snippet.resourceId.videoId,
+          channel: item.snippet.videoOwnerChannelTitle
+        })
+      })
 
       if (res.nextPageToken) {
         nextPageToken = res.nextPageToken

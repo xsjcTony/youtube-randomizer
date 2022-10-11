@@ -2,6 +2,7 @@
 
 import { watch } from 'vue'
 import { $$, $ref } from 'vue/macros'
+import { camelToSentence } from '@/utils'
 import type { Ref } from 'vue'
 
 
@@ -51,6 +52,20 @@ interface YoutubePlaylistItemsResponse {
   items: YoutubePlaylistItem[]
 }
 
+interface YoutubePlaylistItemsError {
+  error: {
+    errors: {
+      domain: string
+      reason: 'channelClosed' | 'channelNotFound' | 'channelSuspended' | 'playlistForbidden' | 'playlistNotFound' | 'playlistOperationUnsupported'
+      message: string
+      locationType: string
+      location: string
+    }[]
+    code: 400 | 403 | 404
+    message: string
+  }
+}
+
 export interface PlaylistItem {
   title: string
   videoId: string
@@ -60,13 +75,13 @@ export interface PlaylistItem {
 
 const apiKey = 'AIzaSyDxh0BAAm28Fi-eXyDUgNj3bnh4wS978g0'
 
-const usePlaylist = (): {
+const usePlaylist = (playlistId: Ref<string>): {
   loading: Ref<boolean>
-  error: Ref<boolean>
+  error: Ref<string | null>
   playlistItems: Ref<PlaylistItem[]>
 } => {
   let loading = $ref<boolean>(true)
-  let error = $ref<boolean>(false)
+  let error = $ref<string | null>(null)
   const playlistItems = $ref<PlaylistItem[]>([])
 
   let nextPageToken = $ref<string | null>(null)
@@ -74,7 +89,7 @@ const usePlaylist = (): {
   const fetchPlaylist = async (): Promise<void> => {
     const params = new URLSearchParams({
       key: apiKey,
-      playlistId: 'PLy4WqzX2UiYNa2IIo4wD2X3ujAM0RfUCH',
+      playlistId: playlistId.value,
       maxResults: '50',
       part: 'snippet',
       pageToken: nextPageToken ?? ''
@@ -84,9 +99,16 @@ const usePlaylist = (): {
     console.log(url)
 
     try {
-      const res: YoutubePlaylistItemsResponse = await (await fetch(url, {
+      const res: YoutubePlaylistItemsError | YoutubePlaylistItemsResponse = await (await fetch(url, {
         method: 'GET'
       })).json()
+
+      if ('error' in res) {
+        error = camelToSentence(res.error.errors[0].reason)
+        nextPageToken = null
+        loading = false
+        return
+      }
 
       res.items.map((item) => {
         if (['Deleted video', 'Private video'].includes(item.snippet.title)) return
@@ -105,15 +127,20 @@ const usePlaylist = (): {
         loading = false
       }
     } catch (err) {
-      error = true
+      error = `${err instanceof Error ? err.message : 'Internal Error'}, contact xsjcTony@gmail.com`
       nextPageToken = null
+      loading = false
     }
   }
 
-  void fetchPlaylist()
+  watch(playlistId, () => {
+    loading = true
+    playlistItems.length = 0
+    void fetchPlaylist()
+  })
 
   watch($$(nextPageToken), (token) => {
-    if (token !== null) { void fetchPlaylist() }
+    if (token !== null) void fetchPlaylist()
   })
 
   return $$({

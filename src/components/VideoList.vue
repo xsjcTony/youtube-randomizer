@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { watchEffect } from 'vue'
-import { $ref } from 'vue/macros'
+import { watch } from 'vue'
+import { $$, $ref } from 'vue/macros'
 import type { PlaylistItem } from '@/composables/usePlaylist'
 
 
@@ -9,11 +9,11 @@ interface VideoListProps {
   selectedIndex: number
 }
 
-type VideoListEmits = (e: 'update:selectedIndex', index: number) => number
+type VideoListEvents = (e: 'update:selectedIndex', index: number) => number
 
 
 const { items, selectedIndex } = defineProps<VideoListProps>()
-const emit = defineEmits<VideoListEmits>()
+const emit = defineEmits<VideoListEvents>()
 
 const handleVideoClick = (index: number): void => {
   emit('update:selectedIndex', index)
@@ -21,10 +21,10 @@ const handleVideoClick = (index: number): void => {
 
 const videoListRef = $ref<HTMLElement | null>(null)
 
-watchEffect(() => {
-  if (!videoListRef) return
+watch($$(selectedIndex), (index) => {
+  if (!videoListRef || items.length === 0) return
 
-  videoListRef.children[selectedIndex].scrollIntoView({
+  videoListRef.children[index].scrollIntoView({
     behavior: 'smooth',
     block: 'center'
   })
@@ -34,7 +34,7 @@ watchEffect(() => {
 <template>
     <div
         ref="videoListRef"
-        class="max-h-96 border border-gray-400 rounded-l w-2/3 min-w-[700px] overflow-auto custom-scrollbar"
+        class="h-96 border border-gray-400 w-2/3 min-w-[700px] overflow-auto custom-scrollbar"
     >
         <div
             v-for="(item, index) in items"

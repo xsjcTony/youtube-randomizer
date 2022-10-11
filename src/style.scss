@@ -13,6 +13,7 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
 }
 
 
@@ -32,7 +33,7 @@ html {
     &::-webkit-scrollbar-thumb {
         border: 3px solid #222;
         border-radius: 6px;
-        background-image: linear-gradient(180deg, #d9a7c7, #fffcdc);
+        background-image: linear-gradient(180deg, var(--gradient1-color-start), var(--gradient1-color-stop));
     }
 }
 
@@ -47,4 +48,12 @@ html {
     display: inline-flex;
     justify-content: center;
     align-items: center;
+}
+
+
+/* CSS Variables */
+:root {
+    --gradient1-color-start: #d9a7c7;
+    --gradient1-color-stop: #fffcdc;
+    --gradient1-to-right: linear-gradient(90deg, var(--gradient1-color-start), var(--gradient1-color-stop))
 }

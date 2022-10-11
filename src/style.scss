@@ -35,6 +35,14 @@ html {
         border-radius: 6px;
         background-image: linear-gradient(180deg, var(--gradient1-color-start), var(--gradient1-color-stop));
     }
+
+    &::-webkit-resizer {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-corner {
+        background-color: #999;
+    }
 }
 
 

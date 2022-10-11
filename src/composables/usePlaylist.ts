@@ -86,7 +86,7 @@ const usePlaylist = (playlistId: Ref<string>): {
   error: Ref<string | null>
   playlistItems: Ref<PlaylistItem[]>
 } => {
-  let loading = $ref<boolean>(true)
+  let loading = $ref<boolean>(false)
   let error = $ref<string | null>(null)
   const playlistItems = $ref<PlaylistItem[]>([])
 
@@ -100,8 +100,8 @@ const usePlaylist = (playlistId: Ref<string>): {
       pageToken: nextPageToken ?? ''
     })
 
+    // Prevent `&` and `=` in `playlistId` being encoded by `URLSearchParams` (for refresh)
     const url = `https://www.googleapis.com/youtube/v3/playlistItems?${params.toString()}&playlistId=${playlistId.value}`
-    console.log(url)
 
     try {
       const res: YoutubePlaylistItemsError | YoutubePlaylistItemsResponse = await (await fetch(url, {

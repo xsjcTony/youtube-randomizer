@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { watch } from 'vue'
 import { $$, $ref } from 'vue/macros'
+import EmptyImg from '@assets/images/empty.svg'
 import type { PlaylistItem } from '@/composables/usePlaylist'
 
 
@@ -34,13 +35,19 @@ watch($$(selectedIndex), (index) => {
 <template>
     <div
         ref="videoListRef"
-        class="h-96 border border-gray-400 w-2/3 min-w-[700px] overflow-auto custom-scrollbar"
+        class="min-h-[24rem] h-96 resize-y border border-gray-400 w-2/3 min-w-[700px] overflow-auto custom-scrollbar text-white"
+        :class="{ 'flex justify-center items-center': items.length === 0 }"
     >
+        <div v-if="items.length === 0" class="text-gray-400 font-bold flex-col flex items-center gap-2 text-xl">
+            <EmptyImg />
+            NO DATA
+        </div>
         <div
             v-for="(item, index) in items"
+            v-else
             :key="index"
             :class="index === selectedIndex && 'bg-gradient-to-r from-gradient2-color-start to-gradient2-color-stop'"
-            class="flex odd:bg-[#333] even:bg-[#555] text-white overflow-x-hidden"
+            class="flex odd:bg-[#333] even:bg-[#555] overflow-x-hidden"
             @click="handleVideoClick(index)"
             @keyup="handleVideoClick(index)"
         >

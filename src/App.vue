@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { $$, $ref } from 'vue/macros'
+import { $, $$, $ref } from 'vue/macros'
 import usePlaylist from '@/composables/usePlaylist'
 import Button from '@components/Button.vue'
 import Input from '@components/Input.vue'
@@ -8,12 +8,16 @@ import VideoList from '@components/VideoList.vue'
 
 const selectedIndex = $ref<number>(0)
 let playlistId = $ref<string>('')
-const { error, loading, playlistItems } = usePlaylist($$(playlistId))
+let { error, loading, playlistItems } = $(usePlaylist($$(playlistId)))
 
 const inputRef = $ref<InstanceType<typeof Input> | null>(null)
 
 const handleShuffleClick = (): void => {
-  if (!inputRef || !inputRef.playlistId) return
+  if (!inputRef || !inputRef.playlistId) {
+    error = `Please enter playlist's ID`
+    return
+  }
+
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   playlistId = `${inputRef?.playlistId}&t=${Date.now()}`
 }
@@ -36,7 +40,7 @@ const handleShuffleClick = (): void => {
 
     <VideoList v-model:selected-index="selectedIndex" :items="playlistItems" />
 
-    <div>{{ error }} {{ loading }}</div>
+    <div v-if="error" class="text-red-300 text-xl"><span class="font-bold">ERROR:</span> {{ error }}</div>
 </template>
 
 <style scoped>

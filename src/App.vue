@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { $, $$, $ref } from 'vue/macros'
 import usePlaylist from '@/composables/usePlaylist'
+import LoadingImg from '@assets/images/loading.svg'
 import Button from '@components/Button.vue'
 import Input from '@components/Input.vue'
 import VideoList from '@components/VideoList.vue'
@@ -40,8 +41,9 @@ const handleShuffleClick = (): void => {
 
     <div>Buttons</div>
 
-    <div class="flex w-2/3 min-w-[700px] gap-10">
+    <div class="flex w-2/3 min-w-[700px] gap-5">
         <Input ref="inputRef" />
+        <LoadingImg v-show="loading" class="text-gradient1-color-middle w-8 animate-spin" />
         <Button :disabled="loading" @click="handleShuffleClick">Shuffle</Button>
     </div>
 

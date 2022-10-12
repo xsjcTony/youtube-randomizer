@@ -62,6 +62,10 @@ html {
     border-image: var(--gradient1-to-right) 1;
 }
 
+.animation-paused {
+    animation-play-state: paused;
+}
+
 
 /* CSS Variables */
 :root {

@@ -18,15 +18,15 @@ const className = computed(() =>
 
 <template>
     <a
-        class="py-2 px-4 border button font-bold relative isolate select-none"
         :class="className"
+        class="py-2 px-4 border button font-bold relative isolate select-none"
     >
         <slot />
     </a>
 </template>
 
 <style lang="scss" scoped>
-.button:not(.disabled) {
+.button {
     transition: color .5s;
 
     &::before {
@@ -39,8 +39,10 @@ const className = computed(() =>
         inset: 0;
     }
 
-    &:hover::before {
-        opacity: 1;
+    &:not(.disabled) {
+        &:hover::before {
+            opacity: 1;
+        }
     }
 }
 </style>

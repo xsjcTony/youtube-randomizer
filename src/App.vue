@@ -4,23 +4,28 @@ import usePlaylist from '@/composables/usePlaylist'
 import LoadingImg from '@assets/images/loading.svg'
 import Button from '@components/Button.vue'
 import Input from '@components/Input.vue'
+import RadioGroup from '@components/RadioGroup.vue'
 import VideoList from '@components/VideoList.vue'
 
 
-let selectedIndex = $ref<number>(999)
+type VideoWidth = 360 | 480 | 720 | 1080
+
+
+let selectedIndex = $ref<number>(0)
 let playlistId = $ref<string>('')
 let { error, loading, playlistItems } = $(usePlaylist($$(playlistId)))
 
 
-/**
- * Input
- */
+// iFrame size
+const videoWidth = $ref<VideoWidth>(360)
+const videoWidthOptions: VideoWidth[] = [360, 480, 720, 1080]
+
+
+// Input
 const inputRef = $ref<InstanceType<typeof Input> | null>(null)
 
 
-/**
- * Buttons
- */
+// Button event handlers
 const handleShuffleClick = (): void => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (loading) return
@@ -48,6 +53,7 @@ const handleShuffleClick = (): void => {
     <h2>iframe here</h2>
 
     <div class="flex justify-between w-full">
+        <RadioGroup v-model="videoWidth" :options="videoWidthOptions" name="videoWidth" />
         <div class="flex gap-5">
             <Button>Previous</Button>
             <Button>Next</Button>
@@ -56,7 +62,7 @@ const handleShuffleClick = (): void => {
     </div>
 
     <div class="flex w-full gap-5">
-        <Input ref="inputRef" />
+        <Input ref="inputRef" class="flex-1" />
         <LoadingImg v-show="loading" class="text-gradient1-color-middle w-8 animate-spin" />
         <Button :disabled="loading" @click="handleShuffleClick">Shuffle</Button>
     </div>

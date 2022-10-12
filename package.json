@@ -10,14 +10,16 @@
   },
   "dependencies": {
     "tailwindcss": "^3.1.8",
+    "uuid": "^9.0.0",
     "vue": "^3.2.40"
   },
   "devDependencies": {
     "@nabla/vite-plugin-eslint": "^1.4.1",
-    "@types/node": "^18.8.3",
+    "@types/node": "^18.8.4",
     "@types/svgo": "^2.6.4",
-    "@typescript-eslint/eslint-plugin": "^5.39.0",
-    "@typescript-eslint/parser": "^5.39.0",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
     "@vitejs/plugin-vue": "^3.1.2",
     "autoprefixer": "^10.4.12",
     "eslint": "^8.25.0",
@@ -30,10 +32,10 @@
     "postcss-flexbugs-fixes": "^5.0.2",
     "sass": "^1.55.0",
     "typescript": "^4.8.4",
-    "vite": "^3.1.6",
+    "vite": "^3.1.7",
     "vite-svg-loader": "^3.6.0",
     "vite-tsconfig-paths": "^3.5.1",
-    "vue-tsc": "^1.0.3"
+    "vue-tsc": "^1.0.6"
   },
   "peerDependencies": {
     "postcss": "^8.4.17"

@@ -36,7 +36,7 @@ watch($$(selectedIndex), (index) => {
 <template>
     <div
         ref="videoListRef"
-        class="min-h-[24rem] h-96 resize-y border border-gradient-1 w-2/3 min-w-[700px] overflow-auto custom-scrollbar text-white"
+        class="min-h-[24rem] h-96 resize-y border border-gradient-1 w-full overflow-auto custom-scrollbar text-white"
         :class="{ 'flex justify-center items-center': items.length === 0 }"
     >
         <div v-if="items.length === 0" class="text-gray-400 font-bold flex-col flex items-center gap-2 text-xl select-none">

@@ -9,11 +9,14 @@ html {
 }
 
 #app {
-    padding-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 66.666667%;
+    min-width: 700px;
+    padding-top: 50px;
     gap: 20px;
+    margin-inline: auto;
 }
 
 

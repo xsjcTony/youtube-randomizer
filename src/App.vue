@@ -11,8 +11,16 @@ let selectedIndex = $ref<number>(999)
 let playlistId = $ref<string>('')
 let { error, loading, playlistItems } = $(usePlaylist($$(playlistId)))
 
+
+/**
+ * Input
+ */
 const inputRef = $ref<InstanceType<typeof Input> | null>(null)
 
+
+/**
+ * Buttons
+ */
 const handleShuffleClick = (): void => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (loading) return
@@ -39,9 +47,15 @@ const handleShuffleClick = (): void => {
 
     <h2>iframe here</h2>
 
-    <div>Buttons</div>
+    <div class="flex justify-between w-full">
+        <div class="flex gap-5">
+            <Button>Previous</Button>
+            <Button>Next</Button>
+        </div>
+        <Button>Bookmark</Button>
+    </div>
 
-    <div class="flex w-2/3 min-w-[700px] gap-5">
+    <div class="flex w-full gap-5">
         <Input ref="inputRef" />
         <LoadingImg v-show="loading" class="text-gradient1-color-middle w-8 animate-spin" />
         <Button :disabled="loading" @click="handleShuffleClick">Shuffle</Button>

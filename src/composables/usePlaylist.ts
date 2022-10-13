@@ -2,7 +2,7 @@
 
 import { watch } from 'vue'
 import { $$, $ref } from 'vue/macros'
-import { camelToSentence } from '@/utils'
+import { camelToSentence, shuffleArray } from '@/utils'
 import type { Ref } from 'vue'
 
 
@@ -88,7 +88,8 @@ const usePlaylist = (playlistId: Ref<string>): {
 } => {
   let loading = $ref<boolean>(false)
   let error = $ref<string | null>(null)
-  const playlistItems = $ref<PlaylistItem[]>([])
+  let playlistItems = $ref<PlaylistItem[]>([])
+  const stagingPlaylistItems: PlaylistItem[] = []
 
   let nextPageToken = $ref<string | null>(null)
 
@@ -118,7 +119,7 @@ const usePlaylist = (playlistId: Ref<string>): {
       res.items.map((item) => {
         if (['Deleted video', 'Private video'].includes(item.snippet.title)) return
 
-        playlistItems.push({
+        stagingPlaylistItems.push({
           title: item.snippet.title,
           videoId: item.snippet.resourceId.videoId,
           channel: item.snippet.videoOwnerChannelTitle
@@ -129,6 +130,11 @@ const usePlaylist = (playlistId: Ref<string>): {
         nextPageToken = res.nextPageToken
       } else {
         nextPageToken = null
+
+        // shuffle
+        playlistItems = shuffleArray(stagingPlaylistItems)
+        stagingPlaylistItems.length = 0
+
         loading = false
       }
     } catch (err) {

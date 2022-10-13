@@ -40,7 +40,8 @@ const usePlayer = (
       height: width.value / 16 * 9,
       videoId: items.value[selectedIndex.value].videoId,
       playerVars: {
-        autoplay: 1 // TODO: use variable
+        autoplay: 1
+        // origin: 'http://127.0.0.1:5173' // TODO: change URL when deployed
       },
       events: {
         onStateChange
@@ -60,12 +61,12 @@ const usePlayer = (
     }
   })
 
-  watch(items.value, (items) => {
-    if (items.length === 0) {
-      player?.stopVideo()
+  watch(() => items.value.length, (len) => {
+    if (len === 0) {
+      player?.destroy()
+      player = null
     } else {
-      player?.loadVideoById?.(items[selectedIndex.value]?.videoId)
-      videoTitle = items[selectedIndex.value]?.title
+      videoTitle = items.value[selectedIndex.value]?.title
     }
   })
 
@@ -73,9 +74,7 @@ const usePlayer = (
   // Player events
   const onStateChange = (event: YT.OnStateChangeEvent): void => {
     if (event.data === YT.PlayerState.ENDED) {
-      selectedIndex.value + 1 >= items.value.length
-        ? emit('update:selectedIndex', 0)
-        : emit('update:selectedIndex', selectedIndex.value + 1)
+      playNext()
     }
 
     if (event.data === YT.PlayerState.PLAYING) {
@@ -83,16 +82,33 @@ const usePlayer = (
     } else {
       clearInterval(timer)
     }
+
+    if (event.data === YT.PlayerState.UNSTARTED) {
+      skipTimer = window.setTimeout(playNext, SKIP_THRESHOLD)
+    } else {
+      clearTimeout(skipTimer)
+    }
+  }
+
+  const playNext = (): void => {
+    selectedIndex.value + 1 >= items.value.length
+      ? emit('update:selectedIndex', 0)
+      : emit('update:selectedIndex', selectedIndex.value + 1)
   }
 
 
   // Update title
   let timer: number
   const updateTitle = (): void => {
-    if (!player) return
-    const percentage = `${Math.round(player.getCurrentTime() / player.getDuration() * 100 || 0)}%`
+    // @ts-expect-error NaN -> 0
+    const percentage = `${Math.round(player?.getCurrentTime?.() / player?.getDuration?.() * 100 || 0)}%`
     document.title = `${percentage} - ${videoTitle}`
   }
+
+
+  // Skip unavailable video
+  let skipTimer: number
+  const SKIP_THRESHOLD = 5000
 }
 
 export default usePlayer

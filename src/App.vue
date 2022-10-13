@@ -16,7 +16,7 @@ let { error, loading, playlistItems } = $(usePlaylist($$(playlistId)))
 
 
 // iframe
-const videoWidth = $ref<PlayerWidth>(360)
+const videoWidth = $ref<PlayerWidth>(720)
 const videoWidthOptions: PlayerWidth[] = [360, 480, 720, 1080]
 
 

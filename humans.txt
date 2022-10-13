@@ -1,0 +1,15 @@
+# https://humanstxt.org/
+
+# TEAM
+
+    Tony Jiang (Aelita) -- Frontend Developer -- https://github.com/xsjcTony -- https://aelita.me/
+
+# THANKS
+
+    All open source contributors❤.
+
+# TECHNOLOGY COLOPHON
+
+    CSS, HTML, TypeScript,
+    Vue3, Tailwind, Vite,
+    Sass, ESLint, pnpm

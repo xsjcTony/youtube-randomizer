@@ -163,7 +163,7 @@ module.exports = {
     'vue/no-useless-mustaches': [
       'error',
       {
-        ignoreIncludesComment: false,
+        ignoreIncludesComment: true,
         ignoreStringEscape: false
       }
     ],

@@ -53,6 +53,7 @@ const handleShuffleClick = (): void => {
 
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   playlistId = `${inputRef.playlistId}&t=${Date.now()}`
+  urlParams.pid = inputRef.playlistId
 }
 
 const handlePreviousClick = () => void selectedIndex--
@@ -63,7 +64,7 @@ const handleNextClick = (): void => {
     : selectedIndex++
 }
 
-const handleBookmarkClick = () => void alert('Please press Ctrl+D (windows) / Command+D (mac) to bookmark this page')
+const handleBookmarkClick = () => void alert('Please press Ctrl+D / Command+D to bookmark this page')
 </script>
 
 <template>
@@ -103,7 +104,36 @@ const handleBookmarkClick = () => void alert('Please press Ctrl+D (windows) / Co
 
     <VideoList v-model:selected-index="selectedIndex" :items="playlistItems" :loading="loading" />
 
-    <div v-if="error" class="text-red-500 text-xl">
-        <span class="font-bold select-none">ERROR - </span>{{ error }}
+    <div class="text-red-500 text-xl flex-1">
+        <span v-if="error"><span class="font-bold select-none">ERROR - </span>{{ error }}</span>
     </div>
+
+    <footer class="text-gray-400 text-1xl leading-loose">
+        &copy; Aelita 2022 -
+        <a
+            class="underline underline-offset-2"
+            href="https://github.com/xsjcTony"
+            rel="noreferrer noopener"
+            target="_blank"
+        >
+            GitHub <span class="font-mono">&UpperRightArrow;</span>
+        </a>
+        -
+        <a
+            class="underline underline-offset-2"
+            href="mailto:xsjcTony@gmail.com?subject=Message from {{ your_name }} - Youtube Playlist Randomizer"
+            title="Contact me"
+        >
+            Contact <span class="font-mono">&#9993;</span>
+        </a>
+        -
+        <a
+            class="underline underline-offset-2"
+            href="https://aelita.me/"
+            rel="noreferrer noopener"
+            target="_blank"
+        >
+            Website <span class="font-mono">&UpperRightArrow;</span>
+        </a>
+    </footer>
 </template>

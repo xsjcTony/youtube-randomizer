@@ -9,7 +9,7 @@ import Input from '@components/Input.vue'
 import Player from '@components/Player.vue'
 import RadioGroup from '@components/RadioGroup.vue'
 import VideoList from '@components/VideoList.vue'
-import type { PlayerWidth } from '@/types'
+import type { PlayerRatio, PlayerWidth } from '@/types'
 
 
 let selectedIndex = $ref<number>(0)
@@ -20,6 +20,9 @@ let { error, loading, playlistItems } = $(usePlaylist($$(playlistId)))
 // iframe
 const videoWidth = useLocalStorage<PlayerWidth>('videoWidth', 720)
 const videoWidthOptions: PlayerWidth[] = [360, 480, 720, 1080]
+
+const videoRatio = useLocalStorage<PlayerRatio>('videoRatio', '16:9')
+const videoRatioOptions: PlayerRatio[] = ['16:9', '4:3']
 
 
 // Input
@@ -75,11 +78,17 @@ const handleBookmarkClick = () => void alert('Please press Ctrl+D / Command+D to
         </span>
     </h1>
 
-    <Player v-model:selected-index="selectedIndex" :items="playlistItems" :width="videoWidth" />
+    <Player
+        v-model:selected-index="selectedIndex"
+        :items="playlistItems"
+        :width="videoWidth"
+        :ratio="videoRatio"
+    />
 
     <div class="flex justify-between w-full">
         <RadioGroup v-model="videoWidth" :options="videoWidthOptions" name="videoWidth" />
-        <div class="flex gap-5">
+        <RadioGroup v-model="videoRatio" :options="videoRatioOptions" name="videoRatio" />
+        <div class="flex gap-2">
             <Button
                 :disabled="playlistItems.length === 0 || selectedIndex === 0"
                 @click="handlePreviousClick"
@@ -133,7 +142,7 @@ const handleBookmarkClick = () => void alert('Please press Ctrl+D / Command+D to
             rel="noreferrer noopener"
             target="_blank"
         >
-            Website <span class="font-mono">&UpperRightArrow;</span>
+            Home <span class="font-mono">&UpperRightArrow;</span>
         </a>
     </footer>
 </template>

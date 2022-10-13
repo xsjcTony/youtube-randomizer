@@ -3,15 +3,25 @@
 import { watch } from 'vue'
 import { $$, $ref, $shallowRef } from 'vue/macros'
 import type { PlaylistItem } from '@/composables/usePlaylist'
-import type { PlayerEmits, PlayerWidth } from '@/types'
+import type { PlayerEmits, PlayerRatio, PlayerWidth } from '@/types'
 import type { Ref } from 'vue'
 
+
+const calcHeight = (width: number, ratio: PlayerRatio): number => {
+  switch (ratio) {
+    case '16:9':
+      return width / 16 * 9
+    case '4:3':
+      return width / 4 * 3
+  }
+}
 
 const usePlayer = (
   playerPlaceholderId: string,
   items: Ref<PlaylistItem[]>,
-  width: Ref<PlayerWidth>,
   selectedIndex: Ref<number>,
+  width: Ref<PlayerWidth>,
+  ratio: Ref<PlayerRatio>,
   emit: PlayerEmits
 ): void => {
   // Initialize YouTube Player API
@@ -37,21 +47,22 @@ const usePlayer = (
 
     player = new YT.Player('player', {
       width: width.value,
-      height: width.value / 16 * 9,
+      height: calcHeight(width.value, ratio.value),
       videoId: items.value[selectedIndex.value].videoId,
       playerVars: {
         autoplay: 1
         // origin: 'http://127.0.0.1:5173' // TODO: change URL when deployed
       },
       events: {
-        onStateChange
+        onStateChange,
+        onError
       }
     })
   })
 
 
   // Watchers
-  watch(width, width => void player?.setSize(width, width / 16 * 9))
+  watch([width, ratio], ([width, ratio]) => void player?.setSize(width, calcHeight(width, ratio)))
 
   watch(selectedIndex, (index) => {
     if (index < items.value.length) {
@@ -82,13 +93,9 @@ const usePlayer = (
     } else {
       clearInterval(timer)
     }
-
-    if (event.data === YT.PlayerState.UNSTARTED) {
-      skipTimer = window.setTimeout(playNext, SKIP_THRESHOLD)
-    } else {
-      clearTimeout(skipTimer)
-    }
   }
+
+  const onError = (event: YT.OnErrorEvent) => void playNext()
 
   const playNext = (): void => {
     selectedIndex.value + 1 >= items.value.length
@@ -104,11 +111,6 @@ const usePlayer = (
     const percentage = `${Math.round(player?.getCurrentTime?.() / player?.getDuration?.() * 100 || 0)}%`
     document.title = `${percentage} - ${videoTitle}`
   }
-
-
-  // Skip unavailable video
-  let skipTimer: number
-  const SKIP_THRESHOLD = 5000
 }
 
 export default usePlayer

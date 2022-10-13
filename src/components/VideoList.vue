@@ -11,11 +11,11 @@ interface VideoListProps {
   loading: boolean
 }
 
-type VideoListEvents = (e: 'update:selectedIndex', index: number) => number
+type VideoListEmits = (e: 'update:selectedIndex', index: number) => number
 
 
 const { items, selectedIndex, loading } = defineProps<VideoListProps>()
-const emit = defineEmits<VideoListEvents>()
+const emit = defineEmits<VideoListEmits>()
 
 const handleVideoClick = (index: number): void => {
   if (loading) return

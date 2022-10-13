@@ -4,11 +4,10 @@ import usePlaylist from '@/composables/usePlaylist'
 import LoadingImg from '@assets/images/loading.svg'
 import Button from '@components/Button.vue'
 import Input from '@components/Input.vue'
+import Player from '@components/Player.vue'
 import RadioGroup from '@components/RadioGroup.vue'
 import VideoList from '@components/VideoList.vue'
-
-
-type VideoWidth = 360 | 480 | 720 | 1080
+import type { PlayerWidth } from '@/types'
 
 
 let selectedIndex = $ref<number>(0)
@@ -16,9 +15,9 @@ let playlistId = $ref<string>('')
 let { error, loading, playlistItems } = $(usePlaylist($$(playlistId)))
 
 
-// iFrame size
-const videoWidth = $ref<VideoWidth>(360)
-const videoWidthOptions: VideoWidth[] = [360, 480, 720, 1080]
+// iframe
+const videoWidth = $ref<PlayerWidth>(360)
+const videoWidthOptions: PlayerWidth[] = [360, 480, 720, 1080]
 
 
 // Input
@@ -38,7 +37,7 @@ const handleShuffleClick = (): void => {
   selectedIndex = 0
 
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  playlistId = `${inputRef?.playlistId}&t=${Date.now()}`
+  playlistId = `${inputRef.playlistId}&t=${Date.now()}`
 }
 </script>
 
@@ -50,7 +49,7 @@ const handleShuffleClick = (): void => {
         </span>
     </h1>
 
-    <h2>iframe here</h2>
+    <Player v-model:selected-index="selectedIndex" :items="playlistItems" :width="videoWidth" />
 
     <div class="flex justify-between w-full">
         <RadioGroup v-model="videoWidth" :options="videoWidthOptions" name="videoWidth" />

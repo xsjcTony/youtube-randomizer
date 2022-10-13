@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { useLocalStorage, useUrlSearchParams } from '@vueuse/core'
+import { onMounted } from 'vue'
 import { $, $$, $ref } from 'vue/macros'
 import usePlaylist from '@/composables/usePlaylist'
 import LoadingImg from '@assets/images/loading.svg'
@@ -16,12 +18,25 @@ let { error, loading, playlistItems } = $(usePlaylist($$(playlistId)))
 
 
 // iframe
-const videoWidth = $ref<PlayerWidth>(720)
+const videoWidth = useLocalStorage<PlayerWidth>('videoWidth', 720)
 const videoWidthOptions: PlayerWidth[] = [360, 480, 720, 1080]
 
 
 // Input
 const inputRef = $ref<InstanceType<typeof Input> | null>(null)
+
+
+// Load from URLSearchParams
+const urlParams = useUrlSearchParams('history')
+onMounted(() => {
+  if (!inputRef) return
+
+  const pid = urlParams.pid
+  if (pid && typeof pid === 'string') {
+    inputRef.setPlaylistId(pid)
+    playlistId = pid
+  }
+})
 
 
 // Button event handlers
@@ -39,6 +54,14 @@ const handleShuffleClick = (): void => {
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   playlistId = `${inputRef.playlistId}&t=${Date.now()}`
 }
+
+const handlePreviousClick = () => void selectedIndex--
+
+const handleNextClick = (): void => {
+  selectedIndex + 1 >= playlistItems.length
+    ? selectedIndex = 0
+    : selectedIndex++
+}
 </script>
 
 <template>
@@ -54,8 +77,18 @@ const handleShuffleClick = (): void => {
     <div class="flex justify-between w-full">
         <RadioGroup v-model="videoWidth" :options="videoWidthOptions" name="videoWidth" />
         <div class="flex gap-5">
-            <Button>Previous</Button>
-            <Button>Next</Button>
+            <Button
+                :disabled="playlistItems.length === 0 || selectedIndex === 0"
+                @click="handlePreviousClick"
+            >
+                Previous
+            </Button>
+            <Button
+                :disabled="playlistItems.length === 0"
+                @click="handleNextClick"
+            >
+                Next
+            </Button>
         </div>
         <Button>Bookmark</Button>
     </div>

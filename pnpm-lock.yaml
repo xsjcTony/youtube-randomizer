@@ -9,6 +9,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.40.0
   '@typescript-eslint/parser': ^5.40.0
   '@vitejs/plugin-vue': ^3.1.2
+  '@vueuse/core': ^9.3.0
   autoprefixer: ^10.4.12
   eslint: ^8.25.0
   eslint-import-resolver-node: ^0.3.6
@@ -22,26 +23,27 @@ specifiers:
   tailwindcss: ^3.1.8
   typescript: ^4.8.4
   uuid: ^9.0.0
-  vite: ^3.1.7
+  vite: ^3.1.8
   vite-svg-loader: ^3.6.0
   vite-tsconfig-paths: ^3.5.1
   vue: ^3.2.40
   vue-tsc: ^1.0.7
 
 dependencies:
+  '@vueuse/core': 9.3.0_vue@3.2.40
   tailwindcss: 3.1.8_postcss@8.4.18
   uuid: 9.0.0
   vue: 3.2.40
 
 devDependencies:
-  '@nabla/vite-plugin-eslint': 1.4.1_eslint@8.25.0+vite@3.1.7
+  '@nabla/vite-plugin-eslint': 1.4.1_eslint@8.25.0+vite@3.1.8
   '@types/node': 18.8.5
   '@types/svgo': 2.6.4
   '@types/uuid': 8.3.4
   '@types/youtube': 0.0.47
   '@typescript-eslint/eslint-plugin': 5.40.0_25sstg4uu2sk4pm7xcyzuov7xq
   '@typescript-eslint/parser': 5.40.0_z4bbprzjrhnsfa24uvmcbu7f5q
-  '@vitejs/plugin-vue': 3.1.2_vite@3.1.7+vue@3.2.40
+  '@vitejs/plugin-vue': 3.1.2_vite@3.1.8+vue@3.2.40
   autoprefixer: 10.4.12_postcss@8.4.18
   eslint: 8.25.0
   eslint-import-resolver-node: 0.3.6
@@ -53,9 +55,9 @@ devDependencies:
   postcss-flexbugs-fixes: 5.0.2_postcss@8.4.18
   sass: 1.55.0
   typescript: 4.8.4
-  vite: 3.1.7_sass@1.55.0
+  vite: 3.1.8_sass@1.55.0
   vite-svg-loader: 3.6.0
-  vite-tsconfig-paths: 3.5.1_vite@3.1.7
+  vite-tsconfig-paths: 3.5.1_vite@3.1.8
   vue-tsc: 1.0.7_typescript@4.8.4
 
 packages:
@@ -142,7 +144,7 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@nabla/vite-plugin-eslint/1.4.1_eslint@8.25.0+vite@3.1.7:
+  /@nabla/vite-plugin-eslint/1.4.1_eslint@8.25.0+vite@3.1.8:
     resolution: {integrity: sha512-H19ReYMRdy7i6zz7HKYcBlfv/4Nu/sv9Wtu9+GImQ5nzCgOz4RRUqnj/PJ2OuATcbxNgLr1NSbk7miJDdK6BOw==}
     peerDependencies:
       eslint: '*'
@@ -151,7 +153,7 @@ packages:
       '@types/eslint': 8.4.6
       chalk: 4.1.2
       eslint: 8.25.0
-      vite: 3.1.7_sass@1.55.0
+      vite: 3.1.8_sass@1.55.0
     dev: true
 
   /@nodelib/fs.scandir/2.1.5:
@@ -221,6 +223,10 @@ packages:
   /@types/uuid/8.3.4:
     resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
     dev: true
+
+  /@types/web-bluetooth/0.0.15:
+    resolution: {integrity: sha512-w7hEHXnPMEZ+4nGKl/KDRVpxkwYxYExuHOYXyzIzCDzEZ9ZCGMAewulr9IqJu2LR4N37fcnb1XVeuZ09qgOxhA==}
+    dev: false
 
   /@types/youtube/0.0.47:
     resolution: {integrity: sha512-uwqm0DUeg+2pff/8y9b22JJb+qWKOcG5aCn2yyT7hmLdK/M8+VECcK6QuNqdAR93IAqTmZeqK2nizTlQg5j+XA==}
@@ -353,14 +359,14 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@vitejs/plugin-vue/3.1.2_vite@3.1.7+vue@3.2.40:
+  /@vitejs/plugin-vue/3.1.2_vite@3.1.8+vue@3.2.40:
     resolution: {integrity: sha512-3zxKNlvA3oNaKDYX0NBclgxTQ1xaFdL7PzwF6zj9tGFziKwmBa3Q/6XcJQxudlT81WxDjEhHmevvIC4Orc1LhQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^3.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 3.1.7_sass@1.55.0
+      vite: 3.1.8_sass@1.55.0
       vue: 3.2.40
     dev: true
 
@@ -476,6 +482,31 @@ packages:
 
   /@vue/shared/3.2.40:
     resolution: {integrity: sha512-0PLQ6RUtZM0vO3teRfzGi4ltLUO5aO+kLgwh4Um3THSR03rpQWLTuRCkuO5A41ITzwdWeKdPHtSARuPkoo5pCQ==}
+
+  /@vueuse/core/9.3.0_vue@3.2.40:
+    resolution: {integrity: sha512-64Rna8IQDWpdrJxgitDg7yv1yTp41ZmvV8zlLEylK4QQLWAhz1OFGZDPZ8bU4lwcGgbEJ2sGi2jrdNh4LttUSQ==}
+    dependencies:
+      '@types/web-bluetooth': 0.0.15
+      '@vueuse/metadata': 9.3.0
+      '@vueuse/shared': 9.3.0_vue@3.2.40
+      vue-demi: 0.13.11_vue@3.2.40
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+    dev: false
+
+  /@vueuse/metadata/9.3.0:
+    resolution: {integrity: sha512-GnnfjbzIPJIh9ngL9s9oGU1+Hx/h5/KFqTfJykzh/1xjaHkedV9g0MASpdmPZIP+ynNhKAcEfA6g5i8KXwtoMA==}
+    dev: false
+
+  /@vueuse/shared/9.3.0_vue@3.2.40:
+    resolution: {integrity: sha512-caGUWLY0DpPC6l31KxeUy6vPVNA0yKxx81jFYLoMpyP6cF84FG5Dkf69DfSUqL57wX8JcUkJDMnQaQIZPWFEQQ==}
+    dependencies:
+      vue-demi: 0.13.11_vue@3.2.40
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+    dev: false
 
   /acorn-jsx/5.3.2_acorn@8.8.0:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2498,7 +2529,7 @@ packages:
       svgo: 2.8.0
     dev: true
 
-  /vite-tsconfig-paths/3.5.1_vite@3.1.7:
+  /vite-tsconfig-paths/3.5.1_vite@3.1.8:
     resolution: {integrity: sha512-t7cPvDMDxOCUxxNLqngXiX+L6jPYBr+eMgkeVadknxBb89d2s1aejz+wFEep010VfXjGVAUWGEFPe1fkRYTFvg==}
     peerDependencies:
       vite: '>2.0.0-0'
@@ -2507,13 +2538,13 @@ packages:
       globrex: 0.1.2
       recrawl-sync: 2.2.2
       tsconfig-paths: 4.1.0
-      vite: 3.1.7_sass@1.55.0
+      vite: 3.1.8_sass@1.55.0
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite/3.1.7_sass@1.55.0:
-    resolution: {integrity: sha512-5vCAmU4S8lyVdFCInu9M54f/g8qbOMakVw5xJ4pjoaDy5wgy9sLLZkGdSLN52dlsBqh0tBqxjaqqa8LgPqwRAA==}
+  /vite/3.1.8_sass@1.55.0:
+    resolution: {integrity: sha512-m7jJe3nufUbuOfotkntGFupinL/fmuTNuQmiVE7cH2IZMuf4UbfbGYMUT3jVWgGYuRVLY9j8NnrRqgw5rr5QTg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -2539,6 +2570,21 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /vue-demi/0.13.11_vue@3.2.40:
+    resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.2.40
+    dev: false
 
   /vue-eslint-parser/9.1.0_eslint@8.25.0:
     resolution: {integrity: sha512-NGn/iQy8/Wb7RrRa4aRkokyCZfOUWk19OP5HP6JEozQFX5AoS/t+Z0ZN7FY4LlmWc4FNI922V7cvX28zctN8dQ==}

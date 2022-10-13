@@ -50,8 +50,8 @@ const usePlayer = (
       height: calcHeight(width.value, ratio.value),
       videoId: items.value[selectedIndex.value].videoId,
       playerVars: {
-        autoplay: 1
-        // origin: 'http://127.0.0.1:5173' // TODO: change URL when deployed
+        autoplay: 1,
+        origin: 'https://youtube-randomizer.aelita.me/'
       },
       events: {
         onStateChange,
@@ -95,7 +95,7 @@ const usePlayer = (
     }
   }
 
-  const onError = (event: YT.OnErrorEvent) => void playNext()
+  const onError = () => void playNext()
 
   const playNext = (): void => {
     selectedIndex.value + 1 >= items.value.length

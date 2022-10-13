@@ -74,7 +74,7 @@ const handleBookmarkClick = () => void alert('Please press Ctrl+D / Command+D to
     <h1 class="text-white text-4xl font-bold flex items-center gap-10">
         <img alt="logo" class="w-12" src="/favicon.png">
         <span class="bg-clip-text title leading-normal bg-gradient-to-r from-gradient1-color-start to-gradient1-color-stop text-fill-transparent">
-            Youtube Playlist Randomizer
+            YouTube Playlist Randomizer
         </span>
     </h1>
 

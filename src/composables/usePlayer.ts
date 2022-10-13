@@ -76,6 +76,7 @@ const usePlayer = (
     if (len === 0) {
       player?.destroy()
       player = null
+      document.title = 'YouTube Playlist Randomizer'
     } else {
       videoTitle = items.value[selectedIndex.value]?.title
     }

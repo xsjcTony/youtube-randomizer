@@ -65,8 +65,8 @@ const usePlayer = (
   watch([width, ratio], ([width, ratio]) => void player?.setSize(width, calcHeight(width, ratio)))
 
   watch(selectedIndex, (index) => {
-    if (index < items.value.length) {
-      player?.loadVideoById(items.value[index].videoId)
+    if (player && index < items.value.length) {
+      player.loadVideoById(items.value[index].videoId)
       videoTitle = items.value[index].title
       document.title = `0% - ${videoTitle}`
     }
@@ -76,6 +76,7 @@ const usePlayer = (
     if (len === 0) {
       player?.destroy()
       player = null
+      clearInterval(timer)
       document.title = 'YouTube Playlist Randomizer'
     } else {
       videoTitle = items.value[selectedIndex.value]?.title

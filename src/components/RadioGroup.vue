@@ -32,7 +32,7 @@ const handleClick = (value: Option): void => {
             v-for="(option, index) in options"
             :key="index"
             :class="radioClassName(option)"
-            :for="option"
+            :for="option.toString()"
             class="radio inline-flex-center border-l first:border-none cursor-pointer relative isolate"
             @click="handleClick(option)"
             @keyup="handleClick(option)"

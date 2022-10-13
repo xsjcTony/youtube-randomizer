@@ -62,6 +62,8 @@ const handleNextClick = (): void => {
     ? selectedIndex = 0
     : selectedIndex++
 }
+
+const handleBookmarkClick = () => void alert('Please press Ctrl+D (windows) / Command+D (mac) to bookmark this page')
 </script>
 
 <template>
@@ -90,7 +92,7 @@ const handleNextClick = (): void => {
                 Next
             </Button>
         </div>
-        <Button>Bookmark</Button>
+        <Button @click="handleBookmarkClick">Bookmark</Button>
     </div>
 
     <div class="flex w-full gap-5">

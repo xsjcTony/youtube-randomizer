@@ -46,7 +46,7 @@ const handleShuffleClick = (): void => {
     <h1 class="text-white text-4xl font-bold flex items-center gap-10">
         <img alt="logo" class="w-12" src="/favicon.png">
         <span class="bg-clip-text title leading-normal bg-gradient-to-r from-gradient1-color-start to-gradient1-color-stop text-fill-transparent">
-            Aelita's Youtube Playlist Randomizer
+            Youtube Playlist Randomizer
         </span>
     </h1>
 
@@ -67,7 +67,7 @@ const handleShuffleClick = (): void => {
         <Button :disabled="loading" @click="handleShuffleClick">Shuffle</Button>
     </div>
 
-    <VideoList v-model:selected-index="selectedIndex" :items="playlistItems" />
+    <VideoList v-model:selected-index="selectedIndex" :items="playlistItems" :loading="loading" />
 
     <div v-if="error" class="text-red-500 text-xl">
         <span class="font-bold select-none">ERROR - </span>{{ error }}

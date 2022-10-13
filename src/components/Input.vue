@@ -1,10 +1,14 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { readonly, ref } from 'vue'
 
 
 const playlistId = ref<string>('')
+const setPlaylistId = (id: string) => void (playlistId.value = id)
 
-defineExpose({ playlistId })
+defineExpose({
+  playlistId: readonly(playlistId),
+  setPlaylistId
+})
 </script>
 
 <template>

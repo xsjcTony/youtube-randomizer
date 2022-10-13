@@ -8,15 +8,17 @@ import type { PlaylistItem } from '@/composables/usePlaylist'
 interface VideoListProps {
   items: PlaylistItem[]
   selectedIndex: number
+  loading: boolean
 }
 
 type VideoListEvents = (e: 'update:selectedIndex', index: number) => number
 
 
-const { items, selectedIndex } = defineProps<VideoListProps>()
+const { items, selectedIndex, loading } = defineProps<VideoListProps>()
 const emit = defineEmits<VideoListEvents>()
 
 const handleVideoClick = (index: number): void => {
+  if (loading) return
   emit('update:selectedIndex', index)
 }
 
